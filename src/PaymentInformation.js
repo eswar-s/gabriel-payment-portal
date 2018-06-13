@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 
 import Paper from '@material-ui/core/Paper';
 import Payment from 'payment';
@@ -237,7 +238,7 @@ class PaymentInformation extends Component {
             </Grid>
           </Grid>
         </Grid>
-        {paymentType !== 'none' && <Grid container spacing={24}>
+        {paymentType !== 'none' && <Grid container spacing={24} direction={isWidthDown('sm', this.props.width) ? 'column-reverse': 'row'}>
           <Grid item xs={12} sm={6}>
             <form noValidate autoComplete="off" className={classes.form}>
             { paymentType !== 'ach' && <Grid container spacing={24}>
@@ -374,4 +375,4 @@ PaymentInformation.propTypes = {
   totalPayableAmount: PropTypes.number.isRequired,
 };
 
-export default withStyles(styles)(PaymentInformation);
+export default withWidth()(withStyles(styles)(PaymentInformation));
