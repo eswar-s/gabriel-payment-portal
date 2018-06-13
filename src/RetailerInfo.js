@@ -14,6 +14,7 @@ const styles = theme => ({
             position: 'absolute',
             right: 4,
             top: 24,
+            margin: 0,
         }
     },
     card: {
