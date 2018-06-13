@@ -1,0 +1,92 @@
+[
+    {
+        "id": "PSI320100",
+        "invoiceDate": "04/11/2018",
+        "dueDate": "06/20/2018",
+        "discountAvailable": "2%",
+        "installments": "2/10",
+        "amount": 2500,
+        "discountAmount": 50,
+        "paymentAmount": 2450
+    },
+    {
+        "id": "PSI320101",
+        "invoiceDate": "06/24/2018",
+        "dueDate": "06/24/2018",
+        "discountAvailable": "NA",
+        "installments": "NA",
+        "amount": 2500,
+        "discountAmount": "NA",
+        "paymentAmount": 2500
+    },
+    {
+        "id": "PSI320102",
+        "invoiceDate": "02/11/2018",
+        "dueDate": "06/25/2018",
+        "discountAvailable": "2%",
+        "installments": "4/8",
+        "amount": 3500,
+        "discountAmount": 70,
+        "paymentAmount": 3430
+    },
+    {
+        "id": "PSI320103",
+        "invoiceDate": "04/11/2018",
+        "dueDate": "06/20/2018",
+        "discountAvailable": "2%",
+        "installments": "2/10",
+        "amount": 2500,
+        "discountAmount": 50,
+        "paymentAmount": 2450
+    },
+    {
+        "id": "PSI320104",
+        "invoiceDate": "06/24/2018",
+        "dueDate": "06/24/2018",
+        "discountAvailable": "NA",
+        "installments": "NA",
+        "amount": 2500,
+        "discountAmount": "NA",
+        "paymentAmount": 2500
+    },
+    {
+        "id": "PSI320105",
+        "invoiceDate": "02/11/2018",
+        "dueDate": "06/25/2018",
+        "discountAvailable": "2%",
+        "installments": "4/8",
+        "amount": 3500,
+        "discountAmount": 70,
+        "paymentAmount": 3430
+    },
+    {
+        "id": "PSI320106",
+        "invoiceDate": "04/11/2018",
+        "dueDate": "06/20/2018",
+        "discountAvailable": "2%",
+        "installments": "2/10",
+        "amount": 2500,
+        "discountAmount": 50,
+        "paymentAmount": 2450
+    },
+    {
+        "id": "PSI320107",
+        "invoiceDate": "06/24/2018",
+        "dueDate": "06/24/2018",
+        "discountAvailable": "NA",
+        "installments": "NA",
+        "amount": 2500,
+        "discountAmount": "NA",
+        "paymentAmount": 2500
+    },
+    {
+        "id": "PSI320108",
+        "invoiceDate": "02/11/2018",
+        "dueDate": "06/25/2018",
+        "discountAvailable": "2%",
+        "installments": "4/8",
+        "amount": 3500,
+        "discountAmount": 70,
+        "paymentAmount": 3430
+    }
+]
