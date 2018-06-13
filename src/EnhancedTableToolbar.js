@@ -57,11 +57,11 @@ class EnhancedTableToolbar extends Component {
                 <div className={classes.spacer} />
                 <div className={classes.actions}>
                     {numSelected > 0 && (
-                        <Tooltip title="Clear all">
+                        // <Tooltip title="Clear all">
+                        // </Tooltip>
                             <IconButton aria-label="Clear all" onClick={this.props.clearAll}>
                                 <ClearAllIcon />
                             </IconButton>
-                        </Tooltip>
                     )}
                 </div>
             </Toolbar>

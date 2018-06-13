@@ -49,11 +49,12 @@ class EnhancedTableHead extends Component {
                                 sortDirection={orderBy === column.id ? order : false}
                                 style={column.disablePadding ? {} : {padding: '4px 16px'}}
                             >
-                                <Tooltip
+                                {/* <Tooltip
                                     title="Sort"
                                     placement={column.numeric ? 'bottom-end' : 'bottom-start'}
                                     enterDelay={300}
                                 >
+                                </Tooltip> */}
                                     <TableSortLabel
                                         active={orderBy === column.id}
                                         direction={order}
@@ -61,7 +62,6 @@ class EnhancedTableHead extends Component {
                                     >
                                         {column.label}
                                     </TableSortLabel>
-                                </Tooltip>
                             </TableCell>
                         );
                     }, this)}
