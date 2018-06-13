@@ -8,6 +8,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import CanadaIcon from './CanadaIcon';
+import UnitedStatesAmericaIcon from './UnitedStatesAmericaIcon';
 
 const toolbarStyles = theme => ({
     root: {
@@ -32,11 +36,20 @@ const toolbarStyles = theme => ({
     title: {
         flex: '0 0 auto',
     },
+    currencyInvoicesOptions: {
+        width: 146,
+    },
+    rootCountry: {
+        filter: 'grayscale(1)'
+    },
+    selectedCountry: {
+        filter: 'grayscale(0)'
+    },
 });
 
 class EnhancedTableToolbar extends Component {
     render() {
-        const { numSelected, classes } = this.props;
+        const { numSelected, classes, selectedCurrencyInvoices } = this.props;
         return (
             <Toolbar
                 className={classNames(classes.root, {
@@ -56,12 +69,22 @@ class EnhancedTableToolbar extends Component {
                 </div>
                 <div className={classes.spacer} />
                 <div className={classes.actions}>
-                    {numSelected > 0 && (
+                    {numSelected > 0 ? (
                         // <Tooltip title="Clear all">
                         // </Tooltip>
                             <IconButton aria-label="Clear all" onClick={this.props.clearAll}>
                                 <ClearAllIcon />
                             </IconButton>
+                    ) : (
+                        <BottomNavigation
+                            className={classes.currencyInvoicesOptions}
+                            value={selectedCurrencyInvoices}
+                            onChange={this.props.handleCurrencyInvoicesChange}
+                            showLabels
+                        >
+                            <BottomNavigationAction classes={{selected: classes.selectedCountry, root: classes.rootCountry}} label="USD" icon={<UnitedStatesAmericaIcon />} />
+                            <BottomNavigationAction classes={{selected: classes.selectedCountry, root: classes.rootCountry}} label="CAD" icon={<CanadaIcon />} />
+                        </BottomNavigation>
                     )}
                 </div>
             </Toolbar>
@@ -72,7 +95,9 @@ class EnhancedTableToolbar extends Component {
 EnhancedTableToolbar.propTypes = {
     classes: PropTypes.object.isRequired,
     numSelected: PropTypes.number.isRequired,
-    clearAll: PropTypes.func
+    clearAll: PropTypes.func,
+    handleCurrencyInvoicesChange: PropTypes.func.isRequired,
+    selectedCurrencyInvoices: PropTypes.number.isRequired
 };
 
 export default withStyles(toolbarStyles)(EnhancedTableToolbar);

@@ -11,11 +11,16 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Currency from 'react-currency-formatter';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import EnhancedTableHead from './EnhancedTableHead';
 import PaymentInformation from './PaymentInformation';
 import CurrencyInputFormat from './CurrencyInputFormat';
+import CanadaIcon from './CanadaIcon';
+import UnitedStatesAmericaIcon from './UnitedStatesAmericaIcon';
 
 const styles = theme => ({
     root: {
@@ -38,7 +43,7 @@ const styles = theme => ({
     },
     rightAlign: {
         textAlign: 'right'
-    }
+    },
 });
 
 class EnhancedTable extends Component {
@@ -52,14 +57,15 @@ class EnhancedTable extends Component {
             data: [],
             page: 0,
             rowsPerPage: 5,
+            selectedCurrencyInvoices: 0
         };
+
+        this.loadData = this.loadData.bind(this);
 
     }
 
-    async componentDidMount() {
-        const response = await fetch(`${process.env.PUBLIC_URL}/invoices.json`);
-        const json = await response.json();
-        this.setState({ data: json.sort((a, b) => (a.id < b.id ? -1 : 1)) });
+    componentDidMount() {
+        this.loadData(this.state.selectedCurrencyInvoices);
     }
 
     handleRequestSort = (event, property) => {
@@ -144,15 +150,36 @@ class EnhancedTable extends Component {
         return this.state.selected.reduce((accumulator, n) => accumulator + (+n.paymentAmount), 0);
     }
 
+    handleCurrencyInvoicesChange = (event, value) => {
+        this.setState({ selectedCurrencyInvoices: value });
+        this.loadData(value);
+    };
+
+    async loadData(value) {
+        let fileName;
+        if (value === 0) {
+            fileName = 'invoices-usd.json';
+        } else {
+            fileName = 'invoices-cad.json';
+        }
+        const response = await fetch(`${process.env.PUBLIC_URL}/${fileName}`);
+        const json = await response.json();
+        this.setState({ data: json.sort((a, b) => (a.id < b.id ? -1 : 1)) });
+    }
+    
+
     render() {
         const { classes } = this.props;
-        const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
+        const { data, order, orderBy, selected, rowsPerPage, page, selectedCurrencyInvoices } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-
+        
         return (
             <div>
                 <Paper className={classes.root}>
-                    <EnhancedTableToolbar numSelected={selected.length} clearAll={this.clearAll}/>
+                    <EnhancedTableToolbar numSelected={selected.length} clearAll={this.clearAll} 
+                        selectedCurrencyInvoices={selectedCurrencyInvoices}
+                        handleCurrencyInvoicesChange={this.handleCurrencyInvoicesChange}
+                    />
                     <div className={classes.tableWrapper}>
                         <Table className={classes.table} aria-labelledby="tableTitle">
                             <EnhancedTableHead
@@ -215,11 +242,11 @@ class EnhancedTable extends Component {
                                         </TableRow>
                                     );
                                 })}
-                                {emptyRows > 0 && (
+                                {/* {emptyRows > 0 && (
                                     <TableRow style={{ height: 49 * emptyRows }}>
                                         <TableCell colSpan={6} />
                                     </TableRow>
-                                )}
+                                )} */}
                             </TableBody>
                         </Table>
                     </div>
