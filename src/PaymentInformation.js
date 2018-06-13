@@ -19,6 +19,8 @@ import Radio from '@material-ui/core/Radio';
 import Currency from 'react-currency-formatter';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import TextField from '@material-ui/core/TextField';
+import Switch from '@material-ui/core/Switch';
+
 
 import CurrencyInputFormat from './CurrencyInputFormat';
 
@@ -60,8 +62,8 @@ const styles = theme => ({
   },
   adhocPayment: {
     maxWidth: '282px',
-    marginRight: '120px',
-    marginTop: '16px'
+    // marginRight: '120px',
+    // marginTop: '16px'
   },
   displayFlex: {
     display: 'flex'
@@ -103,7 +105,8 @@ class PaymentInformation extends Component {
       isCardValid: false,
       isFormValid: false,
       paymentType: 'none',
-      adhocPayment: '',
+      adhocPayment: 0,
+      enableAdhocPayment: false,
     };
   }
 
@@ -155,6 +158,10 @@ class PaymentInformation extends Component {
     });
   };
 
+  handleSwitchChange = name => event => {
+    this.setState({ [name]: event.target.checked });
+  };
+
   handleCallback = (type, isValid) => {
     this.setState({isCardValid: isValid});
   }
@@ -175,7 +182,9 @@ class PaymentInformation extends Component {
 
   render() {
     const { classes, totalPayableAmount } = this.props;
-    const { name, number, expiry, cvc, focused, isFormValid, adhocPayment, paymentType, chequeABANubmer, chequeBankAccountNumber } = this.state;
+    const { name, number, expiry, cvc, focused, isFormValid, 
+      adhocPayment, paymentType, chequeABANubmer, 
+      chequeBankAccountNumber, enableAdhocPayment } = this.state;
     return (
       <Paper className={classes.root}>
         <Grid container spacing={24}>
@@ -183,7 +192,7 @@ class PaymentInformation extends Component {
             <Grid item container className={classes.totalPaymentContainer} xs={12} sm={6}>
               <Grid item className={classes.totalPaymentTypo}>
                 <Typography variant='subheading' gutterBottom className={classes.displayFlex}>
-                  <CheckBoxIcon color="secondary" className={classes.checkboxIcon}/> 
+                  <CheckBoxIcon color={enableAdhocPayment ? 'disabled' : 'secondary'} className={classes.checkboxIcon}/> 
                   <span>Total payable amount:</span>
                 </Typography>
                 { paymentType === 'credit' && <Typography variant='subheading' gutterBottom>
@@ -196,29 +205,34 @@ class PaymentInformation extends Component {
               <Grid item xs={2} className={classes.totalPaymentNumbers}>
                 <Typography variant='subheading' gutterBottom>
                   <Currency
-                    quantity={totalPayableAmount}
+                    quantity={enableAdhocPayment ? +adhocPayment: totalPayableAmount}
                   />
                 </Typography>
                 { paymentType === 'credit' && <Typography variant='subheading' gutterBottom>
                   <Currency
-                    quantity={(totalPayableAmount * 2.5) / 100}
+                    quantity={((enableAdhocPayment ? +adhocPayment: totalPayableAmount) * 2.5) / 100}
                   />
                 </Typography>}
                 { paymentType === 'credit' && <Typography variant='subheading' gutterBottom>
                   <Currency
-                    quantity={totalPayableAmount + ((totalPayableAmount * 2.5) / 100)}
+                    quantity={(enableAdhocPayment ? +adhocPayment: totalPayableAmount) + (((enableAdhocPayment ? +adhocPayment : totalPayableAmount * 2.5)) / 100)}
                   />
                 </Typography>}
               </Grid>
-              <TextField fullWidth className={classes.adhocPayment}
-                label="Adhoc Payment"
-                id="adhocPayment"
-                value={adhocPayment ? adhocPayment : paymentType === 'credit' ? totalPayableAmount + ((totalPayableAmount * 2.5) / 100) : totalPayableAmount} 
-                onChange={this.handleTextFieldChange('adhocPayment')}
-                InputProps={{
-                  inputComponent: CurrencyInputFormat,
-                }}
-              />              
+              <Grid item xs={12}>
+                <FormControlLabel control={<Switch value="enableAdhocPayment" onChange={this.handleSwitchChange('enableAdhocPayment')} />} label="Adhoc Payment" />
+              </Grid>
+              {enableAdhocPayment && <Grid item xs={12}>
+                <TextField fullWidth className={classes.adhocPayment}
+                  label="Adhoc Payment"
+                  id="adhocPayment"
+                  value={adhocPayment} 
+                  onChange={this.handleTextFieldChange('adhocPayment')}
+                  InputProps={{
+                    inputComponent: CurrencyInputFormat,
+                  }}
+                />
+              </Grid> }
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControl component="fieldset" required className={classes.formControl}>
@@ -351,9 +365,12 @@ class PaymentInformation extends Component {
                 </Grid>
                 <Grid item sm={3}>
                   <Paper className={classes.chequeNumber}>
+                    {enableAdhocPayment ? <Currency
+                      quantity={paymentType === 'credit' ? adhocPayment + ((adhocPayment * 2.5) / 100) : adhocPayment} 
+                    /> :
                     <Currency
-                      quantity={adhocPayment ? +adhocPayment : paymentType === 'credit' ? totalPayableAmount + ((totalPayableAmount * 2.5) / 100) : totalPayableAmount} 
-                    />
+                      quantity={paymentType === 'credit' ? totalPayableAmount + ((totalPayableAmount * 2.5) / 100) : totalPayableAmount} 
+                    /> }
                   </Paper>
                 </Grid>
               </Grid>
