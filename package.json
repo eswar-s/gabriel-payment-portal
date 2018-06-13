@@ -2,9 +2,11 @@
   "name": "payment-portal-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://eswar-s.github.io/gabriel-payment-portal",
   "dependencies": {
     "@material-ui/core": "^1.2.1",
     "@material-ui/icons": "^1.1.0",
+    "gh-pages": "^1.2.0",
     "react": "^16.4.0",
     "react-credit-cards": "^0.7.0",
     "react-currency-formatter": "^1.1.0",
@@ -14,6 +16,8 @@
     "typeface-roboto": "^0.0.54"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

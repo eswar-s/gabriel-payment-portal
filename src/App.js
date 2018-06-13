@@ -36,7 +36,9 @@ const styles = theme => ({
   },
   table: {
     margin: theme.spacing.unit / 2,
-    paddingTop: 12,
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: 12,
+    }
   },
   header: {
     fontFamily: "'Averia Serif Libre', cursive",
