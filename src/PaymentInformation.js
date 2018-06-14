@@ -418,8 +418,12 @@ class PaymentInformation extends Component {
           </Grid> }
         </Grid> }
         <Grid container spacing={24} justify="flex-end">
-          <Button variant="contained" color="primary" className={classes.button} disabled={!isFormValid} onClick={this.storeSelectedData}>
-            <Link to='/success' className={classes.buttonLink}>Proceed to Pay</Link>
+          <Button variant="contained" color="primary" 
+            className={classes.button} disabled={!isFormValid} 
+            onClick={this.storeSelectedData}
+            component={Link} to='/success'
+          >
+            Proceed to Pay
           </Button>
         </Grid>
       </Paper>

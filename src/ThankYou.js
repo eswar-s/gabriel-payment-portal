@@ -54,8 +54,12 @@ class ThankYou extends Component {
                 <Typography variant="subheading" component="h3">
                   Please pay amount using below button
                 </Typography>
-                <Button variant="contained" color="primary" className={classes.button}>
-                  <Link to='../' className={classes.buttonLink}>Pay amount</Link>
+                <Button variant="contained" color="primary" 
+                  className={classes.button}
+                  component={Link}
+                  to='../'
+                >
+                  Pay amount
                 </Button>
               </Paper>
             )
