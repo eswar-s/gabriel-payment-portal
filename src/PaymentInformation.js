@@ -177,7 +177,13 @@ class PaymentInformation extends Component {
   };
 
   handleCallback = (type, isValid) => {
-    this.setState({isCardValid: isValid});
+    this.setState(prevState => {
+      let isFormValid = isValid && prevState.name.length > 0 && prevState.expiry.length >= 4 && prevState.cvc.length === 3
+      return {
+        isCardValid: isValid,
+        isFormValid: isFormValid
+      }
+    })
   }
 
   handlePaymentTypeChange = event => {
