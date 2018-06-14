@@ -42,10 +42,10 @@ class ThankYou extends Component {
             <div className={classes.table}>
               <Paper className={classes.typo}>
                 <Typography variant="subheading" component="h3">
-                  Thank you, Your payment is completed.
+                  Thanks! Your payment is processed.
                 </Typography>
                 <Typography variant="body2" component="h3">
-                  You did payment for following invoices
+                  Payment is completed for the  following Invoices:
                 </Typography>
               </Paper>
               <EnhancedTableReadOnly data={paidData}/>

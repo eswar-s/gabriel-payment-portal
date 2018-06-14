@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
 import './App.css';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Router, Redirect } from 'react-router-dom';
 
 import 'react-credit-cards/es/styles-compiled.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +13,9 @@ import GabrielIcon from './GabrielIcon';
 import Home from './Home';
 import ThankYou from './ThankYou';
 import RetailerInfo from './RetailerInfo';
+
+import createHistory from 'history/createHashHistory'
+const history = createHistory()
 
 const theme = createMuiTheme({
   palette: {
@@ -67,10 +70,15 @@ class App extends Component {
           <div className={classes.root}>
             <RetailerInfo />
             <div className={classes.table}>
-              <Switch>
-                <Route exact path='/' component={Home}/>
-                <Route exact path='/success' component={ThankYou}/>
-              </Switch>
+              <Router history={history}>
+                <Switch>
+                  <Route exact path="/" render={() => (
+                      <Redirect to="/home"/>
+                  )}/>
+                  <Route path='/home' component={Home}/>
+                  <Route path='/success' component={ThankYou}/>
+                </Switch>
+              </Router>
             </div>
           </div>
         </MuiThemeProvider>

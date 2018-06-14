@@ -8,6 +8,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Currency from 'react-currency-formatter';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 import EnhancedTableHeadReadOnly from './EnhancedTableHeadReadOnly';
 
@@ -73,6 +75,10 @@ class EnhancedTableReadOnly extends Component {
         this.setState({ rowsPerPage: event.target.value });
     };
 
+    totalPaymentAmount = () => {
+        return this.props.data.reduce((accumulator, n) => accumulator + (+n.paymentAmount), 0);
+    }
+
     render() {
         const { classes } = this.props;
         const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
@@ -123,6 +129,26 @@ class EnhancedTableReadOnly extends Component {
                         onChangePage={this.handleChangePage}
                         onChangeRowsPerPage={this.handleChangeRowsPerPage}
                     />
+                    <Grid container spacing={24} justify="space-around">
+                        <Grid item>
+                            <Typography variant="subheading" align="center">
+                                Total Amount Paid:&nbsp;
+                                <Currency
+                                    quantity={this.totalPaymentAmount()} 
+                                />
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="subheading" align="center">
+                                Transaction id: #1239128313
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="subheading" align="center">
+                                Dated: 14 Jun 2018
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 </Paper>
             </div>
         );

@@ -4,7 +4,7 @@ import NumberFormat from 'react-number-format';
 
 class CurrencyInputFormat extends Component {
     render() {
-        const { inputRef, onChange, ...other } = this.props;
+        const { inputRef, onChange, disablePadding, ...other } = this.props;
 
         return (
             <NumberFormat
@@ -21,7 +21,7 @@ class CurrencyInputFormat extends Component {
                 prefix="$"
                 decimalScale={2}
                 fixedDecimalScale={true}
-                style={{textAlign: 'right'}}
+                style={disablePadding ? {textAlign: 'right', padding: '0'} : {textAlign: 'right'}}
             />
         );
     }
@@ -30,6 +30,7 @@ class CurrencyInputFormat extends Component {
 CurrencyInputFormat.propTypes = {
     inputRef: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
+    disablePadding: PropTypes.bool
 };
 
 export default CurrencyInputFormat;
