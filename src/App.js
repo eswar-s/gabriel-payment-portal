@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core/styles';
 import indigo from '@material-ui/core/colors/indigo';
 import './App.css';
-import GabrielIcon from './GabrielIcon'
+import { Switch, Route } from 'react-router-dom';
 
 import 'react-credit-cards/es/styles-compiled.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-
-import EnhancedTable from './EnhancedTable';
+import GabrielIcon from './GabrielIcon';
+import Home from './Home';
+import ThankYou from './ThankYou';
 import RetailerInfo from './RetailerInfo';
 
 const theme = createMuiTheme({
@@ -24,6 +25,12 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
   },
+  table: {
+    margin: theme.spacing.unit / 2,
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: 12,
+    }
+  },
   gabrielIcon: {
     margin: theme.spacing.unit * 2,
     marginLeft: 0,
@@ -32,12 +39,6 @@ const styles = theme => ({
     [theme.breakpoints.down('sm')]: {
       width: '100px',
       height: '20px',
-    }
-  },
-  table: {
-    margin: theme.spacing.unit / 2,
-    [theme.breakpoints.up('sm')]: {
-      paddingTop: 12,
     }
   },
   header: {
@@ -49,45 +50,27 @@ const styles = theme => ({
 
 class App extends Component {
 
-  componentDidMount() {
-    window.gtag('config', 'UA-120029252-1', { 'page_path': '/amavida', 'page_title': 'amavida', 'campaign': {
-      'source': 'Localhost', 'medium': 'Embed'
-    }});
-
-    window.gtag('event', 'view_item_list', {
-      "items": [
-        {
-          "name": "Android Warhol T-Shirt",
-          "list_name": "Store Locate Results",
-          "list_position": 1,
-        },
-        {
-          "name": "Flame challenge TShirt",
-          "list_name": "Store Locate Results",
-          "list_position": 2,
-        }
-      ]
-    });
-  }
-
   render() {
     const { classes } = this.props;
     return (
       <React.Fragment>
         <CssBaseline />
         <MuiThemeProvider theme={theme}>
-          <div className={classes.root}>
-            <AppBar position="static">
+          <AppBar position="static">
               <Toolbar>
-                <GabrielIcon className={classes.gabrielIcon}/>
-                <h2 className={classes.header}>
+              <GabrielIcon className={classes.gabrielIcon}/>
+              <h2 className={classes.header}>
                   Payment Portal
-                </h2>
+              </h2>
               </Toolbar>
-            </AppBar>
+          </AppBar>
+          <div className={classes.root}>
             <RetailerInfo />
             <div className={classes.table}>
-              <EnhancedTable/>
+              <Switch>
+                <Route exact path='/' component={Home}/>
+                <Route exact path='/success' component={ThankYou}/>
+              </Switch>
             </div>
           </div>
         </MuiThemeProvider>

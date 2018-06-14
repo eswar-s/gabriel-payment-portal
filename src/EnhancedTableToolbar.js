@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -70,8 +69,6 @@ class EnhancedTableToolbar extends Component {
                 <div className={classes.spacer} />
                 <div className={classes.actions}>
                     {numSelected > 0 ? (
-                        // <Tooltip title="Clear all">
-                        // </Tooltip>
                             <IconButton aria-label="Clear all" onClick={this.props.clearAll}>
                                 <ClearAllIcon />
                             </IconButton>

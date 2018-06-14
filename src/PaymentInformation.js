@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
+import { Link } from 'react-router-dom';
 
 import Paper from '@material-ui/core/Paper';
 import Payment from 'payment';
@@ -41,6 +42,10 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
+  },
+  buttonLink: {
+    color: 'inherit',
+    textDecoration: 'none'
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -179,9 +184,13 @@ class PaymentInformation extends Component {
     }
   };
 
+  storeSelectedData = event => {
+    localStorage.setItem('paidData', JSON.stringify(this.props.selected));
+  }
+
 
   render() {
-    const { classes, totalPayableAmount } = this.props;
+    const { classes, totalPayableAmount, selectedCurrencyInvoices } = this.props;
     const { name, number, expiry, cvc, focused, isFormValid, 
       adhocPayment, paymentType, chequeABANubmer, 
       chequeBankAccountNumber, enableAdhocPayment } = this.state;
@@ -207,16 +216,19 @@ class PaymentInformation extends Component {
                   <Currency
                     quantity={enableAdhocPayment ? +adhocPayment: totalPayableAmount}
                   />
+                  &nbsp;{selectedCurrencyInvoices === 0 ? 'USD' : 'CAD'}
                 </Typography>
                 { paymentType === 'credit' && <Typography variant='subheading' gutterBottom>
                   <Currency
                     quantity={((enableAdhocPayment ? +adhocPayment: totalPayableAmount) * 2.5) / 100}
                   />
+                  &nbsp;{selectedCurrencyInvoices === 0 ? 'USD' : 'CAD'}
                 </Typography>}
                 { paymentType === 'credit' && <Typography variant='subheading' gutterBottom>
                   <Currency
                     quantity={(enableAdhocPayment ? +adhocPayment: totalPayableAmount) + (((enableAdhocPayment ? +adhocPayment : totalPayableAmount * 2.5)) / 100)}
                   />
+                  &nbsp;{selectedCurrencyInvoices === 0 ? 'USD' : 'CAD'}
                 </Typography>}
               </Grid>
               <Grid item xs={12}>
@@ -370,7 +382,8 @@ class PaymentInformation extends Component {
                     /> :
                     <Currency
                       quantity={paymentType === 'credit' ? totalPayableAmount + ((totalPayableAmount * 2.5) / 100) : totalPayableAmount} 
-                    /> }
+                    />}
+                    &nbsp;{selectedCurrencyInvoices === 0 ? 'USD' : 'CAD'}
                   </Paper>
                 </Grid>
               </Grid>
@@ -378,8 +391,8 @@ class PaymentInformation extends Component {
           </Grid> }
         </Grid> }
         <Grid container spacing={24} justify="flex-end">
-          <Button variant="contained" color="primary" className={classes.button} disabled={!isFormValid}>
-            Proceed to Pay
+          <Button variant="contained" color="primary" className={classes.button} disabled={!isFormValid} onClick={this.storeSelectedData}>
+            <Link to='/success' className={classes.buttonLink}>Proceed to Pay</Link>
           </Button>
         </Grid>
       </Paper>
@@ -390,6 +403,8 @@ class PaymentInformation extends Component {
 PaymentInformation.propTypes = {
   classes: PropTypes.object.isRequired,
   totalPayableAmount: PropTypes.number.isRequired,
+  selectedCurrencyInvoices: PropTypes.number.isRequired,
+  selected: PropTypes.array.isRequired
 };
 
 export default withWidth()(withStyles(styles)(PaymentInformation));

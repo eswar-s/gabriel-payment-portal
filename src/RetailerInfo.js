@@ -45,6 +45,15 @@ const styles = theme => ({
     },
     cardContentRoot: {
         padding: 12,
+    },
+    retailerName: {
+        alignSelf: 'center',
+        padding: 4,
+        textAlign: 'center',
+        backgroundImage: 'linear-gradient(90deg, #F79533 0%, #F37055 15%, #EF4E7B 30%, #A166AB 44%, #5073B8 58%, #1098AD 72%, #07B39B 86%, #6DBA82 100%)',
+        backgroundSize: 'cover',
+        '-webkit-background-clip': 'text',
+        textFillColor: 'transparent',
     }
 });
 
@@ -55,11 +64,14 @@ class RetailerInfo extends Component {
         return (
             <div className={classes.root}>
                 <Card className={classes.card}>
-                    <CardMedia
+                    {/* <CardMedia
                         className={classes.cover}
                         image="http://www.westorangejewelers.com/wp-content/uploads/2014/02/WOJBLK-Web.jpg"
                         title="West Orange Jewelers"
-                    />
+                    /> */}
+                    <Typography variant="subheading" component="h3" className={classes.retailerName}>
+                        West Orange<br/>Jewelers
+                    </Typography>
                     <div className={classes.details}>
                         <CardContent className={classes.content}>
                             {/* <Typography variant="subheading">

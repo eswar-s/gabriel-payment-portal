@@ -11,16 +11,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Currency from 'react-currency-formatter';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import EnhancedTableHead from './EnhancedTableHead';
 import PaymentInformation from './PaymentInformation';
 import CurrencyInputFormat from './CurrencyInputFormat';
-import CanadaIcon from './CanadaIcon';
-import UnitedStatesAmericaIcon from './UnitedStatesAmericaIcon';
 
 const styles = theme => ({
     root: {
@@ -269,9 +264,10 @@ class EnhancedTable extends Component {
                         <Currency
                             quantity={this.totalAmount()} 
                         />
+                        &nbsp;{selectedCurrencyInvoices === 0 ? 'USD' : 'CAD'}
                     </Typography>}
                 </Paper>
-                {this.totalPayableAmount() > 0 && <PaymentInformation totalPayableAmount={this.totalPayableAmount()}/>}
+                {this.totalPayableAmount() > 0 && <PaymentInformation totalPayableAmount={this.totalPayableAmount()} selectedCurrencyInvoices={selectedCurrencyInvoices} selected={selected}/>}
             </div>
         );
     }
