@@ -10,6 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import GabrielIcon from './GabrielIcon';
+import GabrielCircleIcon from './GabrielCircleIcon';
 import Home from './Home';
 import ThankYou from './ThankYou';
 import RetailerInfo from './RetailerInfo';
@@ -41,6 +42,10 @@ const styles = theme => ({
       height: '20px',
     }
   },
+  gabrielCircleIcon: {
+    width: 48,
+    height: 48,
+  },
   header: {
     fontFamily: "'Averia Serif Libre', cursive",
     fontSize: '22px',
@@ -58,7 +63,8 @@ class App extends Component {
         <MuiThemeProvider theme={theme}>
           <AppBar position="static">
               <Toolbar>
-              <GabrielIcon className={classes.gabrielIcon}/>
+              {/* <GabrielIcon className={classes.gabrielIcon}/> */}
+              <GabrielCircleIcon className={classes.gabrielCircleIcon}/>
               <h2 className={classes.header}>
                   Payment Portal
               </h2>
