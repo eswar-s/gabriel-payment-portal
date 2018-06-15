@@ -20,7 +20,9 @@ import CurrencyInputFormat from './CurrencyInputFormat';
 const styles = theme => ({
     root: {
         width: '100%',
-        marginTop: theme.spacing.unit * 3,
+        [theme.breakpoints.up('sm')]: {
+            marginTop: theme.spacing.unit * 3,
+        }
     },
     table: {
         minWidth: 1020,

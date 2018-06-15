@@ -50,6 +50,9 @@ const styles = theme => ({
     fontFamily: "'Averia Serif Libre', cursive",
     fontSize: '22px',
     fontWeight: '100'
+  },
+  appBar: {
+    paddingTop: 'env(safe-area-inset-top)',
   }
 });
 
@@ -61,7 +64,7 @@ class App extends Component {
       <React.Fragment>
         <CssBaseline />
         <MuiThemeProvider theme={theme}>
-          <AppBar position="static">
+          <AppBar position="static" className={classes.appBar}>
               <Toolbar>
               {/* <GabrielIcon className={classes.gabrielIcon}/> */}
               <GabrielCircleIcon className={classes.gabrielCircleIcon}/>

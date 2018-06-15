@@ -8,9 +8,9 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     root: {
-        width: 320,
-        margin: '16px auto',
+        margin: 4,
         [theme.breakpoints.up('sm')]: {
+            width: 320,
             position: 'absolute',
             right: 4,
             top: 24,
@@ -19,6 +19,7 @@ const styles = theme => ({
     },
     card: {
         display: 'flex',
+        justifyContent: 'center'
     },
     details: {
         display: 'flex',

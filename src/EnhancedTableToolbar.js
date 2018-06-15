@@ -36,7 +36,10 @@ const toolbarStyles = theme => ({
         flex: '0 0 auto',
     },
     currencyInvoicesOptions: {
-        width: 146,
+        width: 100,
+        [theme.breakpoints.up('sm')]: {
+            width: 146,
+        }
     },
     rootCountry: {
         filter: 'grayscale(1)'
